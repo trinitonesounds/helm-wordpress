@@ -2,6 +2,9 @@
 
 [WordPress](https://wordpress.org/) is one of the most versatile open source content management systems on the market. A publishing platform for building blogs and websites.
 
+## ** IMPORTANT NOTE **
+This Chart was customized to work for my particular requirements.  No guarantees it will work in your environment.
+
 ## TL;DR;
 
 ```console
