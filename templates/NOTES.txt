@@ -1,3 +1,9 @@
+## ** IMPORTANT NOTE **
+
+This Chart was customized to work for my particular requirements.
+No guarantees it will work in your environment.
+
+
 1. Get the WordPress URL:
 
 {{- if .Values.ingress.enabled }}
@@ -7,7 +13,7 @@
   {{- range .Values.ingress.hosts }}
   {{ if .tls }}https{{ else }}http{{ end }}://{{ .name }}/admin
   {{- end }}
-  
+
 {{- else if contains "LoadBalancer" .Values.serviceType }}
 
   NOTE: It may take a few minutes for the LoadBalancer IP to be available.
