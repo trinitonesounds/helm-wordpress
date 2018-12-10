@@ -1,7 +1,7 @@
-appVersion: 10.1.29
+appVersion: 10.1.37
 description: Fast, reliable, scalable, and easy to use open-source relational database
   system. MariaDB Server is intended for mission-critical, heavy-load production systems
-  as well as for embedding into mass-deployed software.
+  as well as for embedding into mass-deployed software. Highly available MariaDB cluster.
 engine: gotpl
 home: https://mariadb.org
 icon: https://bitnami.com/assets/stacks/mariadb/img/mariadb-stack-220x234.png
@@ -18,4 +18,4 @@ name: mariadb
 sources:
 - https://github.com/bitnami/bitnami-docker-mariadb
 - https://github.com/prometheus/mysqld_exporter
-version: 2.1.1
+version: 5.2.3

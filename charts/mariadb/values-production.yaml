@@ -53,7 +53,7 @@ rootUser:
   ##
   ## Option to force users to specify a password. That is required for 'helm upgrade' to work properly.
   ## If it is not force, a random password will be generated.
-  forcePassword: false
+  forcePassword: true
 
 db:
   ## MariaDB username and password
@@ -68,12 +68,12 @@ db:
   name: my_database
   ## Option to force users to specify a password. That is required for 'helm upgrade' to work properly.
   ## If it is not force, a random password will be generated.
-  forcePassword: false
+  forcePassword: true
 
 replication:
   ## Enable replication. This enables the creation of replicas of MariaDB. If false, only a
   ## master deployment would be created
-  enabled: false
+  enabled: true
   ##
   ## MariaDB replication user
   ## ref: https://github.com/bitnami/bitnami-docker-mariadb#setting-up-a-replication-cluster
@@ -87,7 +87,7 @@ replication:
   ##
   ## Option to force users to specify a password. That is required for 'helm upgrade' to work properly.
   ## If it is not force, a random password will be generated.
-  forcePassword: false
+  forcePassword: true
 
 master:
   ## Mariadb Master additional pod annotations
@@ -138,7 +138,7 @@ master:
     - ReadWriteOnce
     ## Persistent Volume size
     ##
-    size: 1Gi
+    size: 8Gi
     ##
 
   ## Configure MySQL with a custom my.cnf file
@@ -186,7 +186,7 @@ master:
     failureThreshold: 3
   readinessProbe:
     enabled: true
-    initialDelaySeconds: 30
+    initialDelaySeconds: 15
     ##
     ## Default Kubernetes values
     periodSeconds: 10
@@ -195,7 +195,8 @@ master:
     failureThreshold: 3
 
 slave:
-  replicas: 1
+  replicas: 2
+
 
   ## Mariadb Slave additional pod annotations
   ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
@@ -228,7 +229,7 @@ slave:
     - ReadWriteOnce
     ## Persistent Volume size
     ##
-    size: 1Gi
+    size: 8Gi
     ##
 
   ## Configure MySQL slave with a custom my.cnf file
@@ -277,7 +278,7 @@ slave:
     failureThreshold: 3
   readinessProbe:
     enabled: true
-    initialDelaySeconds: 45
+    initialDelaySeconds: 15
     ##
     ## Default Kubernetes values
     periodSeconds: 10
@@ -286,7 +287,7 @@ slave:
     failureThreshold: 3
 
 metrics:
-  enabled: false
+  enabled: true
   image:
     registry: docker.io
     repository: prom/mysqld-exporter

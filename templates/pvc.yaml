@@ -21,9 +21,4 @@ spec:
   storageClassName: "{{ .Values.persistence.storageClass }}"
 {{- end }}
 {{- end }}
-{{- if .Values.persistence.persistentVolume }}
-  selector:
-    matchLabels:
-      pvname: {{ .Values.persistence.persistentVolume | quote }}
-{{- end }}
 {{- end -}}
