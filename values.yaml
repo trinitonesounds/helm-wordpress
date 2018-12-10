@@ -2,7 +2,7 @@
 ## ref: https://hub.docker.com/r/bitnami/wordpress/tags/
 ##
 image:
-  registry: 192.168.1.128:5000
+  registry: docker.io
   repository: cwh/wordpress
   tag: latest
   ## Specify a imagePullPolicy
@@ -67,8 +67,6 @@ allowEmptyPassword: true
 # smtpUsername:
 # smtpProtocol:
 
-replicaCount: 1
-
 externalDatabase:
 ## All of these values are only used when mariadb.enabled is set to false
   ## Database host
@@ -93,10 +91,7 @@ mariadb:
   ## Whether to use the database specified as a requirement or not.
   ## If you want to use an external database, set this to false and supply details to externalDatabase above
   enabled: true
-  ## Disable MariaDB replication
-  replication:
-    enabled: false
-    
+
   ## MariaDB admin password
   ## ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#setting-the-root-password-on-first-run
   ##
@@ -131,11 +126,11 @@ mariadb:
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
     ##   GKE, AWS & OpenStack)
     ##
-    storageClass: "standard"
+    # storageClass: "-"
     persistentVolume: pv-mariadb1
     path: /data/mariadb
     accessMode: ReadWriteOnce
-    size: 1Gi
+    size: 4Gi
 
 ## Kubernetes configuration
 ## For minikube, set this to NodePort, elsewhere use LoadBalancer or ClusterIP
@@ -178,12 +173,12 @@ readinessProbe:
 ##
 ingress:
   ## Set to true to enable ingress record generation
-  enabled: true
+  enabled: false
 
   ## The list of hostnames to be covered with this ingress record.
   ## Most likely this will be just one host, but in the event more hosts are needed, this is an array
   hosts:
-  - name: kubectf.local
+  - name: wordpress.local
   # - name:
 
     ## Configure the URL path for the ingress controller
@@ -205,7 +200,7 @@ ingress:
     ##
     ## If tls is set to true, annotation ingress.kubernetes.io/secure-backends: "true" will automatically be set
     annotations:
-        #  kubernetes.io/ingress.class: nginx
+      kubernetes.io/ingress.class: nginx
     #  kubernetes.io/tls-acme: true
 
   secrets:
@@ -234,7 +229,7 @@ persistence:
   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
   ##   GKE, AWS & OpenStack)
   ##
-  storageClass: "standard"
+  # storageClass: "-"
   persistentVolume: pv-wordpress1
   path: /data/wordpress
 
@@ -243,7 +238,7 @@ persistence:
   ## the existingClaim variable
   # existingClaim: your-claim
   accessMode: ReadWriteOnce
-  size: 1Gi
+  size: 5Gi
 
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
