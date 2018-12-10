@@ -66,7 +66,7 @@ persistence:
   ##
   # storageClass: "-"
   accessMode: ReadWriteOnce
-  size: 4Gi
+  size: 1Gi
 
 ## Configure MariaDB with a custom my.cnf file
 ## ref: https://mariadb.com/kb/en/mariadb/configuring-mariadb-with-mycnf/#example-of-configuration-file

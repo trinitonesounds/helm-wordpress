@@ -3,3 +3,6 @@
 OWNERS
 # example production yaml
 values-production.yaml
+
+# local files to ignore
+.directory

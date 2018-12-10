@@ -30,7 +30,7 @@ spec:
         - name: data
           mountPath: /bitnami/mariadb
       containers:
-      - name: mariadb
+      - name: {{ template "mariadb.fullname" . }}
         image: "{{ .Values.image }}"
         imagePullPolicy: {{ .Values.imagePullPolicy | quote }}
         env:
@@ -55,6 +55,8 @@ spec:
           value: {{ default "" .Values.mariadbUser | quote }}
         - name: MARIADB_DATABASE
           value: {{ default "" .Values.mariadbDatabase | quote }}
+        - name: MARIADB_HOST
+          value: {{ template "mariadb.fullname" . }}
         ports:
         - name: mysql
           containerPort: 3306
