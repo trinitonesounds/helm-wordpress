@@ -221,6 +221,11 @@ spec:
         storageClassName: {{ .Values.master.persistence.storageClass | quote }}
       {{- end }}
       {{- end }}
+      {{- if .Values.master.persistence.persistentVolume }}
+        selector:
+          matchLabels:
+            pvname: {{ .Values.master.persistence.persistentVolume | quote }}
+      {{- end }}
 {{- else }}
         - name: "data"
           emptyDir: {}

@@ -61,12 +61,12 @@ wordpressTablePrefix: wp_
 
 ## Set to `false` to allow the container to be started with blank passwords
 ## ref: https://github.com/bitnami/bitnami-docker-wordpress#environment-variables
-allowEmptyPassword: true
+allowEmptyPassword: false
 
 ## SMTP mail delivery configuration
 ## ref: https://github.com/bitnami/bitnami-docker-wordpress/#smtp-configuration
 ##
-# smtpHost:
+# smtpHost:undercooked-gnat
 # smtpPort:
 # smtpUser:
 # smtpPassword:
@@ -84,7 +84,7 @@ externalDatabase:
   user: bn_wordpress
 
   ## Database password
-  password: ""
+  password: test_password
 
   ## Database name
   database: bitnami_wordpress
@@ -109,16 +109,16 @@ mariadb:
   ##
   db:
     name: bitnami_wordpress
-    user: bn_wordpress
+    user: wp_dbuser
     ## If the password is not specified, mariadb will generates a random password
     ##
-    # password:
+    password: test_password
 
   ## MariaDB admin password
   ## ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#setting-the-root-password-on-first-run
   ##
-  # rootUser:
-  #   password:
+  rootUser:
+    password: test_password
 
   ## Enable persistence using Persistent Volume Claims
   ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
@@ -168,16 +168,16 @@ healthcheckHttps: false
 ## Configure extra options for liveness and readiness probes
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes)
 livenessProbe:
-  initialDelaySeconds: 180
-  periodSeconds: 20
+  initialDelaySeconds: 580
+  periodSeconds: 45
   timeoutSeconds: 7
-  failureThreshold: 6
+  failureThreshold: 15
   successThreshold: 1
 readinessProbe:
-  initialDelaySeconds: 210
-  periodSeconds: 20
+  initialDelaySeconds: 510
+  periodSeconds: 45
   timeoutSeconds: 7
-  failureThreshold: 6
+  failureThreshold: 15
   successThreshold: 1
 
 ## Configure the ingress resource that allows you to access the
@@ -201,7 +201,7 @@ ingress:
     certManager: false
 
     ## If TLS is set to true, you must declare what secret will store the key/certificate for TLS
-    tlsSecret: kubectf.local-tls
+    tlsSecret: wordpress.local-tls
 
     ## Ingress annotations done as key:value pairs
     ## For a full list of possible ingress annotations, please see

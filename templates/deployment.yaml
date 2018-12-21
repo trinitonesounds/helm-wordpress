@@ -39,6 +39,14 @@ spec:
       - ip: "127.0.0.1"
         hostnames:
         - "status.localhost"
+      initContainers:
+      - name: "create-folder"
+        image: "busybox"
+        imagePullPolicy: "{{ .Values.imagePullPolicy }}"
+        command: ["sh", "-c", "mkdir -p /bitnami/wordpress && chmod 777 /bitnami/wordpress"]
+        volumeMounts:
+        - name: wordpress-data
+          mountPath: /bitnami/wordpress
       containers:
       - name: wordpress
         image: {{ template "wordpress.image" . }}
@@ -50,6 +58,26 @@ spec:
         {{- else }}
           value: "no"
         {{- end }}
+        # - name: MARIADB_DATABASE
+        # {{- if .Values.mariadb.enabled }}
+        #   value: {{ .Values.mariadb.db.name | quote }}
+        # {{- else }}
+        #   value: {{ .Values.externalDatabase.database | quote }}
+        # {{- end }}
+        # - name: MARIADB_USER
+        # {{- if .Values.mariadb.enabled }}
+        #   value: {{ .Values.mariadb.db.user | quote }}
+        # {{- end }}
+        - name: MARIADB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+            {{- if .Values.mariadb.enabled }}
+              name: {{ template "mariadb.fullname" . }}
+              key: mariadb-root-password
+            {{- else }}
+              name: {{ printf "%s-%s" .Release.Name "externaldb" }}
+              key: db-password
+            {{- end }}
         - name: MARIADB_HOST
         {{- if .Values.mariadb.enabled }}
           value: {{ template "mariadb.fullname" . }}
@@ -101,6 +129,8 @@ spec:
           value: {{ .Values.wordpressBlogName | quote }}
         - name: WORDPRESS_TABLE_PREFIX
           value: {{ .Values.wordpressTablePrefix | quote }}
+        - name: WORDPRESS_HOST
+          value: {{ template "fullname" . }}
         - name: SMTP_HOST
           value: {{ .Values.smtpHost | quote }}
         - name: SMTP_PORT
@@ -118,6 +148,8 @@ spec:
           value: {{ .Values.smtpProtocol | quote }}
         - name: DISABLE_LAUNCH_TRACKING
           value: "true"
+        - name: NAMI_LOG_LEVEL
+          value: trace8
         ports:
         - name: http
           containerPort: 80

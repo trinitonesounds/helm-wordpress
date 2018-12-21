@@ -1,0 +1,24 @@
+{{- if and .Values.master.persistence.enabled (not .Values.master.persistence.existingClaim) }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.master.persistence.persistentVolume | default "pv0001" | quote }}
+  annotations:
+    pv.beta.kubernetes.io/gid: "1001"
+  labels:
+    pvname: {{ .Values.master.persistence.persistentVolume | default "pv0001" | quote }}
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  capacity:
+    storage: {{ .Values.master.persistence.size | quote }}
+  accessModes:
+  {{- range .Values.master.persistence.accessModes }}
+    - {{ . | quote }}
+  {{- end }}
+  storageClassName: standard
+  hostPath:
+    path: {{ .Values.master.persistence.path | quote }}
+{{- end -}}

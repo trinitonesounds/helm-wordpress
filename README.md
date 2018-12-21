@@ -4,7 +4,7 @@
 source content management systems on the market. A publishing platform
 for building blogs and websites.
 
-## ** IMPORTANT NOTE **
+## **IMPORTANT NOTE**
 This Chart was customized to work for my particular requirements.  No
 guarantees it will work in your environment.
 
@@ -31,8 +31,8 @@ deployment and management of Helm Charts in clusters.
 
 ## Prerequisites
 
-- Kubernetes 1.4+ with Beta APIs enabled
-- PV provisioner support in the underlying infrastructure
+-   Kubernetes 1.4+ with Beta APIs enabled
+-   PV provisioner support in the underlying infrastructure
 
 ## Installing the Chart
 
@@ -253,16 +253,16 @@ This chart will facilitate the creation of TLS secrets for use with the
 ingress controller, however, this is not required.  There are three
 common use cases:
 
-* helm generates/manages certificate secrets
-* user generates/manages certificates separately
-* an additional tool (like
+*   helm generates/manages certificate secrets
+*   user generates/manages certificates separately
+*   an additional tool (like
 [kube-lego](https://kubeapps.com/charts/stable/kube-lego)) manages the
 secrets for the application
 
 In the first two cases, one will need a certificate and a key.  We would
 expect them to look like this:
 
-* certificate files should look like (and there can be more than one
+*   certificate files should look like (and there can be more than one
 certificate if there is a certificate chain)
 
 ```
@@ -272,7 +272,7 @@ MIID6TCCAtGgAwIBAgIJAIaCwivkeB5EMA0GCSqGSIb3DQEBCwUAMFYxCzAJBgNV
 jScrvkiBO65F46KioCL9h5tDvomdU1aqpI/CBzhvZn1c0ZTf87tGQR8NK7v7
 -----END CERTIFICATE-----
 ```
-* keys should look like:
+*   keys should look like:
 ```
 -----BEGIN RSA PRIVATE KEY-----
 MIIEogIBAAKCAQEAvLYcyu8f3skuRyUgeeNpeDvYBCDcgq+LsWap6zbX5f8oLqp4
